@@ -17,8 +17,13 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test --reporter=html
+    - name: Run Playwright tests with HTML report and debug
+      run: |
+        npx playwright test --reporter=html
+        echo "Listing root directory contents:"
+        ls -la
+        echo "Listing playwright-report directory contents:"
+        ls -la playwright-report || echo "No playwright-report directory found"
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
